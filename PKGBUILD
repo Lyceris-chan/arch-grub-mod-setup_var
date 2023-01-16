@@ -63,6 +63,7 @@ source=("git+https://git.savannah.gnu.org/git/grub.git#commit=${_commit}"
         '0001-00_header-add-GRUB_COLOR_-variables.patch'
         '0002-10_linux-detect-archlinux-initramfs.patch'
         '0003-fix-f2fs.patch'
+        '0004-add-setup_var.patch'
         'grub.default'
         'sbat.csv')
 
@@ -73,6 +74,7 @@ sha256sums=('SKIP'
             '5dee6628c48eef79812bb9e86ee772068d85e7fcebbd2b2b8d1e19d24eda9dab'
             '8488aec30a93e8fe66c23ef8c23aefda39c38389530e9e73ba3fbcc8315d244d'
             'b783ec919b22e628d3db91ede4571272ffa833d20ab42eccace15258a884c26b'
+            '2a7bfdadcbdf0029d8dcdaec026759aa42d1ee2f9c84753bb22083519ffeaca5'
             '7df3f5cb5df7d2dfb17f4c9b5c5dedc9519ddce6f8d2c6cd43d1be17cecb65cb'
             '98b23d41e223bdc0a6e20bdcb3aa77e642f29b64081b1fd2f575314172fc89df')
 
@@ -132,6 +134,9 @@ prepare() {
 
 	echo "Patch to fix f2fs..."
 	patch -Np1 -i "${srcdir}/0003-fix-f2fs.patch"
+
+	echo "Patch to add setup_var command to efi..."
+	patch -Np1 -i "${srcdir}/0004-add-setup_var.patch"
 
 	echo "Fix DejaVuSans.ttf location so that grub-mkfont can create *.pf2 files for starfield theme..."
 	sed 's|/usr/share/fonts/dejavu|/usr/share/fonts/dejavu /usr/share/fonts/TTF|g' -i "configure.ac"

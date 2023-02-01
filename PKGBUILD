@@ -62,6 +62,7 @@ source=("git+https://git.savannah.gnu.org/git/grub.git#commit=${_commit}"
         "https://ftp.gnu.org/gnu/unifont/unifont-${_unifont_ver}/unifont-${_unifont_ver}.bdf.gz"{,.sig}
         '0001-00_header-add-GRUB_COLOR_-variables.patch'
         '0002-10_linux-detect-archlinux-initramfs.patch'
+        '0003-20_add-setup_var.patch'
         'grub.default'
         'sbat.csv')
 
@@ -71,6 +72,7 @@ sha256sums=('SKIP'
             'SKIP'
             '5dee6628c48eef79812bb9e86ee772068d85e7fcebbd2b2b8d1e19d24eda9dab'
             '8488aec30a93e8fe66c23ef8c23aefda39c38389530e9e73ba3fbcc8315d244d'
+            '2a7bfdadcbdf0029d8dcdaec026759aa42d1ee2f9c84753bb22083519ffeaca5'
             '7df3f5cb5df7d2dfb17f4c9b5c5dedc9519ddce6f8d2c6cd43d1be17cecb65cb'
             '98b23d41e223bdc0a6e20bdcb3aa77e642f29b64081b1fd2f575314172fc89df')
 
@@ -127,6 +129,9 @@ prepare() {
 
 	echo "Patch to detect of Arch Linux initramfs images by grub-mkconfig..."
 	patch -Np1 -i "${srcdir}/0002-10_linux-detect-archlinux-initramfs.patch"
+
+	echo "Patch to add setup_var command to efi..."
+	patch -Np1 -i "${srcdir}/0003-20_add-setup_var.patch"
 
 	echo "Fix DejaVuSans.ttf location so that grub-mkfont can create *.pf2 files for starfield theme..."
 	sed 's|/usr/share/fonts/dejavu|/usr/share/fonts/dejavu /usr/share/fonts/TTF|g' -i "configure.ac"
